@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jingela Advisory | Business Consulting</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav-main">
+    <div class="nav-container">
+      <div class="logo">Jingela Advisory</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="offers.html">Offers</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <h1>Grow Your Business with Confidence</h1>
+      <p>Practical consulting for small businesses and entrepreneurs to improve revenue, productivity & systems.</p>
+      <a href="https://wa.me/27682845690?text=Hi%20Thandokuhle,%20I%20found%20your%20site%20and%20am%20interested%20in%20your%20services." class="btn whatsapp-btn" target="_blank">Chat on WhatsApp</a>
+    </div>
+  </header>
+
+  <!-- SERVICES -->
+  <section class="section services-section">
+    <div class="container">
+      <h2>What We Do</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Business Growth Consulting</h3>
+          <p>Increase revenue and customer conversions with proven strategies.</p>
+        </div>
+        <div class="card">
+          <h3>Operations & Workflow Systems</h3>
+          <p>Streamline internal processes to reduce chaos and increase productivity.</p>
+        </div>
+        <div class="card">
+          <h3>Startup Launch Advisory</h3>
+          <p>Take your idea to paying customers with a clear, structured plan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="section offers-section light-bg">
+    <div class="container">
+      <h2>Our Offers</h2>
+      <div class="grid">
+        <div class="card offer-card">
+          <h3>Business Growth Audit</h3>
+          <p>Comprehensive review of revenue and operations with actionable insights.</p>
+          <p><strong>From:</strong> R2,500</p>
+          <a href="offers.html" class="btn whatsapp-btn">Learn More</a>
+        </div>
+        <div class="card offer-card">
+          <h3>Monthly Consulting Support</h3>
+          <p>Regular guidance and accountability to help execute growth strategies.</p>
+          <p><strong>From:</strong> R4,500/month</p>
+          <a href="offers.html" class="btn whatsapp-btn">Learn More</a>
+        </div>
+        <div class="card offer-card">
+          <h3>Startup Launch Program</h3>
+          <p>90‑day guided program from idea validation to first customers.</p>
+          <p><strong>From:</strong> R6,500</p>
+          <a href="offers.html" class="btn whatsapp-btn">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="section why-section">
+    <div class="container">
+      <h2>Why Choose Us</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Tailored Solutions</h3>
+          <p>Every business is unique — your plan should be too.</p>
+        </div>
+        <div class="card">
+          <h3>Proven Frameworks</h3>
+          <p>We use structured, repeatable methods that work.</p>
+        </div>
+        <div class="card">
+          <h3>Hands‑on Support</h3>
+          <p>We don’t just advise — we help you implement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WRITE YOUR FEEDBACK -->
+  <section class="section review-section">
+    <div class="container">
+      <h2>Write Your Feedback</h2>
+      <p>We’d love to hear your thoughts! Share your experience below.</p>
+
+      <form id="feedback-form" onsubmit="addFeedback(event)">
+        <input type="text" id="feedback-name" placeholder="Your Name" required>
+        <textarea id="feedback-message" placeholder="Your Feedback" required></textarea>
+        <button type="submit" class="btn whatsapp-btn">Submit Feedback</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- CLIENT FEEDBACK -->
+  <section class="section testimonials-section light-bg">
+    <div class="container">
+      <h2>Client Feedback</h2>
+      <div id="feedback-list" class="grid">
+        <!-- Feedback will be loaded from localStorage -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="section contact-cta">
+    <div class="container">
+      <h2>Ready to Grow Your Business?</h2>
+      <a href="https://wa.me/27682845690?text=Hi%20Thandokuhle,%20I%20want%20to%20start%20a%20consulting%20chat." class="btn whatsapp-btn" target="_blank">Chat on WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    © Jingela Advisory | South Africa
+  </footer>
+
+  <!-- SCRIPT: Persistent Feedback + Owner Code -->
+  <script>
+    const feedbackList = document.getElementById('feedback-list');
+    let ownerMode = false;
+
+    // Owner code prompt
+    const ownerCode = "1214"; // Change this to your secret code
+    const inputCode = prompt("Enter owner code to manage feedback:");
+    if(inputCode === ownerCode){
+      ownerMode = true;
+      alert("Owner mode enabled: Delete buttons are visible.");
+    }
+
+    // Load feedback from localStorage
+    let feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+    feedbacks.forEach(fb => createFeedbackCard(fb.name, fb.message));
+
+    // Add feedback
+    function addFeedback(event){
+      event.preventDefault();
+      const name = document.getElementById('feedback-name').value.trim();
+      const message = document.getElementById('feedback-message').value.trim();
+      if(!name || !message) return;
+
+      // Save to localStorage
+      feedbacks.push({name, message});
+      localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+
+      // Create card
+      createFeedbackCard(name, message);
+      document.getElementById('feedback-form').reset();
+    }
+
+    // Create feedback card function
+    function createFeedbackCard(name, message){
+      const card = document.createElement('div');
+      card.classList.add('testimonial-card');
+      let html = `<p>“${message}”</p><strong>— ${name}</strong>`;
+      if(ownerMode){
+        html += `<button class="delete-btn" onclick="deleteFeedback(this, '${name}', '${message}')">Delete</button>`;
+      }
+      card.innerHTML = html;
+      feedbackList.appendChild(card);
+    }
+
+    // Delete feedback (owner only)
+    function deleteFeedback(button, name, message){
+      const card = button.parentElement;
+      feedbackList.removeChild(card);
+
+      // Remove from localStorage
+      feedbacks = feedbacks.filter(fb => !(fb.name === name && fb.message === message));
+      localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

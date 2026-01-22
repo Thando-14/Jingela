@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact | Jingela Advisory</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- EmailJS -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+     (function(){
+        emailjs.init("YOUR_EMAILJS_USER_ID"); // Replace with your EmailJS User ID
+     })();
+  </script>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav-main">
+    <div class="nav-container">
+      <div class="logo">Jingela Advisory</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="offers.html">Offers</a>
+        <a href="contact.html" class="active">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <h1>Contact Us</h1>
+      <p>Have questions or ready to start growing your business? Reach out today!</p>
+    </div>
+  </header>
+
+  <!-- CONTACT FORM -->
+  <section class="section contact-section light-bg">
+    <div class="container">
+      <h2>Send Us a Message</h2>
+      <p>Fill out the form below and we’ll get back to you as soon as possible.</p>
+
+      <form id="contact-form" onsubmit="submitContact(event)">
+        <input type="text" id="contact-name" placeholder="Your Name" required>
+        <input type="email" id="contact-email" placeholder="Your Email" required>
+        <textarea id="contact-message" placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn whatsapp-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- CONTACT DETAILS -->
+  <section class="section contact-details">
+    <div class="container">
+      <h2>Reach Out Directly</h2>
+      <p><strong>Email:</strong> thandokuhlejingela@gmail.com</p>
+      <p><strong>Phone / WhatsApp:</strong> +27682845690</p>
+      <p><strong>Location:</strong> South Africa</p>
+    </div>
+  </section>
+
+  <!-- WHATSAPP CTA -->
+  <section class="section contact-cta light-bg">
+    <div class="container">
+      <h2>Chat With Us on WhatsApp</h2>
+      <a href="https://wa.me/27682845690?text=Hi%20Thandokuhle,%20I%20want%20to%20learn%20more%20about%20your%20services." class="btn whatsapp-btn" target="_blank">Chat on WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    © Jingela Advisory | South Africa
+  </footer>
+
+  <!-- SCRIPT: Contact form sending to WhatsApp and EmailJS -->
+  <script>
+    function submitContact(event){
+      event.preventDefault();
+
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+
+      if(!name || !email || !message) return;
+
+      // --- 1. Open WhatsApp with pre-filled message ---
+      const whatsappNumber = "27682845690"; // your WhatsApp number
+      const whatsappMessage = `Hi Thandokuhle, I received a message from ${name} (${email}): ${message}`;
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappURL, "_blank");
+
+      // --- 2. Send Email via EmailJS ---
+      emailjs.send("thandokuhlejingela@gmail.com", "thandokuhlejingela@gmail.com", {
+        from_name: name,
+        from_email: email,
+        message: message
+      })
+      .then(function(response) {
+        alert("Message sent successfully! We'll get back to you soon.");
+        document.getElementById('contact-form').reset();
+      }, function(error) {
+        alert("Oops... something went wrong. Please try again later.");
+        console.error("EmailJS Error:", error);
+      });
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
